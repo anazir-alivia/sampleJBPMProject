@@ -72,15 +72,14 @@ public class MyController
 		return complaint;
 	}
 	
-	@PostMapping("/GetComplaintTasks")
-	public Complaint getComplaintTasks(@Valid @RequestBody Complaint complaint) {
-		String url = "http://192.168.0.101:8080/kie-server/services/rest/server/queries/cases/instances/" + complaint.getCaseInstanceID() + "/tasks/instances/pot-owners?page=0&pageSize=10&";
+	@RequestMapping(value="GetCaseTasks", method = RequestMethod.GET)
+	public @ResponseBody TaskSummaryList getComplaintTasks(@RequestParam(name = "caseInstanceID") String caseInstanceID) {
+		String url = "http://192.168.0.101:8080/kie-server/services/rest/server/queries/cases/instances/" + caseInstanceID + "/tasks/instances/pot-owners?page=0&pageSize=10&";
 		String response = new CallRestService().sendGetRequest(url);
 		ComplaintController complaintController = new ComplaintController();
 		TaskSummaryList  taskSummaryList =  complaintController.getTaskSummaryList(response);
-		complaint.setTaskSummaryList(taskSummaryList);
-		System.out.println("GetComplaintTasks Response :" + complaint);
-		return complaint;
+		System.out.println("GetComplaintTasks Response :" + taskSummaryList);
+		return taskSummaryList;
 	}
 	
 	@RequestMapping(value="GetTaskFormContect", method = RequestMethod.GET)
