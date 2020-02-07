@@ -1,0 +1,3 @@
+org\kie\server\samples\AuditFormRenderer.class
+org\kie\server\samples\CustomFormRenderer.class
+org\kie\server\samples\custom_form_renderer\App.class
